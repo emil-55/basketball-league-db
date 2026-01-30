@@ -1,0 +1,248 @@
+Opis baze podataka
+-napravio: Emil Baltić Hrsan
+
+OSNOVNE INFORMACIJE
+
+Ime baze: ebaltic_math (KOŠARKAŠKA LIGA)
+
+Kratak opis baze: pohranjuju se podaci o klubovima, igračima i utakmicama neke košarkaške lige
+
+Popis tablica: KLUB, IGRAC, UTAKMICA, NASTUPIO
+
+NAPOMENA: Iz tablice UTAKMICA izostavio sam atribut DVORANA koji je uključen u relacijskoj shemi
+radi normalizacije jer vrijedi ovisnost NAZIV_KLUBA -> DVORANA. Relacija UTAKMICA unatoč tome nije
+u 2NF jer vrijedi SIFRA -> DOMACI_KLUB, SIFRA -> GOSTUJUCI_KLUB i SIFRA -> DATUM, ali je tu normalizacija
+namjerno izostavljena jer ona nije uvjet zadaće, a njeno provođenje bi zahtijevalo nepotrebno kompliciranu 
+manipulaciju stringovima u kasnijim upitima.
+
+SADRŽAJ TABLICA
+
+KLUB
++------------------------+--------------------------+------------------------------+
+| NAZIV_KLUBA            | DVORANA                  | LOKACIJA                     |
++------------------------+--------------------------+------------------------------+
+| Boston Celtics         | TD Garden                | Boston, Massachusetts, USA   |
+| Dallas Mavericks       | American Airlines Center | Dallas, Texas, USA           |
+| Los Angeles Clippers   | Crypto.com Arena         | Los Angeles, California, USA |
+| Minnesota Timberwolves | Target Center            | Minneapolis, Minnesota, USA  |
+| Oklahoma City Thunder  | Paycom Center            | Oklahoma City, Oklahoma, USA |
++------------------------+--------------------------+------------------------------+
+
+IGRAC
++-------------+--------------------+--------------+------------+-----------+------------------------+
+| OIB         | PREZIME            | IME          | DATR       | VISINA_CM | NAZIV_KLUBA            |
++-------------+--------------------+--------------+------------+-----------+------------------------+
+| 13047000027 | Towns              | Karl-Anthony | 1995-11-15 |       211 | Minnesota Timberwolves |
+| 18283240321 | Irving             | Kyrie        | 1992-03-23 |       188 | Dallas Mavericks       |
+| 23350594229 | Gobert             | Rudy         | 1992-06-26 |       216 | Minnesota Timberwolves |
+| 31035076511 | George             | Paul         | 1990-05-02 |       203 | Los Angeles Clippers   |
+| 33877762940 | Holmgren           | Chet         | 2002-05-01 |       213 | Oklahoma City Thunder  |
+| 34697271200 | Dort               | Luguentz     | 1999-04-19 |       193 | Oklahoma City Thunder  |
+| 35680099333 | Doncic             | Luka         | 1999-02-28 |       201 | Dallas Mavericks       |
+| 57900018300 | Leonard            | Kawhi        | 1991-06-29 |       201 | Los Angeles Clippers   |
+| 71999939187 | Gilgeous-Alexander | Shai         | 1998-07-12 |       198 | Oklahoma City Thunder  |
+| 74329767072 | Harden             | James        | 1989-08-26 |       196 | Los Angeles Clippers   |
+| 77647727970 | Brown              | Jaylen       | 1996-10-24 |       198 | Boston Celtics         |
+| 78603734755 | Tatum              | Jayson       | 1998-03-03 |       203 | Boston Celtics         |
+| 87087426007 | Edwards            | Anthony      | 2001-08-05 |       198 | Minnesota Timberwolves |
+| 92373225612 | Lively             | Dereck       | 2004-10-12 |       211 | Dallas Mavericks       |
+| 96914561353 | Zubac              | Ivica        | 1997-03-18 |       213 | Los Angeles Clippers   |
++-------------+--------------------+--------------+------------+-----------+------------------------+
+
+UTAKMICA
++------------------+------------------------+------------------+------------+----------+------------------+
+| SIFRA            | DOMACI_KLUB            | GOSTUJUCI_KLUB   | DATUM      | REZULTAT | POBJEDNIK        |
++------------------+------------------------+------------------+------------+----------+------------------+
+| BOS-DAL-06062024 | Boston Celtics         | Dallas Mavericks | 2024-06-06 | 107-89   | Boston Celtics   |
+| LAC-DAL-05012024 | Los Angeles Clippers   | Dallas Mavericks | 2024-05-01 | 93-123   | Dallas Mavericks |
+| MIN-DAL-05302024 | Minnesota Timberwolves | Dallas Mavericks | 2024-05-30 | 103-124  | Dallas Mavericks |
+| OKC-DAL-05152024 | Oklahoma City Thunder  | Dallas Mavericks | 2024-05-15 | 92-104   | Dallas Mavericks |
++------------------+------------------------+------------------+------------+----------+------------------+
+
+NASTUPIO
++-------------+------------------+-------+---------+-------------+---------+
+| OIB         | SIFRA            | POENI | SKOKOVI | ASISTENCIJE | BLOKADE |
++-------------+------------------+-------+---------+-------------+---------+
+| 13047000027 | MIN-DAL-05302024 |    28 |      12 |           2 |       0 |
+| 18283240321 | BOS-DAL-06062024 |    12 |       3 |           2 |       0 |
+| 18283240321 | LAC-DAL-05012024 |    14 |       4 |           6 |       0 |
+| 18283240321 | MIN-DAL-05302024 |    36 |       4 |           5 |       0 |
+| 18283240321 | OKC-DAL-05152024 |    12 |       2 |           4 |       0 |
+| 23350594229 | MIN-DAL-05302024 |     9 |       5 |           1 |       0 |
+| 31035076511 | LAC-DAL-05012024 |    15 |      11 |           4 |       0 |
+| 33877762940 | OKC-DAL-05152024 |    13 |       4 |           1 |       1 |
+| 34697271200 | OKC-DAL-05152024 |    12 |       6 |           4 |       0 |
+| 35680099333 | BOS-DAL-06062024 |    30 |      10 |           1 |       0 |
+| 35680099333 | LAC-DAL-05012024 |    35 |       7 |          10 |       0 |
+| 35680099333 | MIN-DAL-05302024 |    36 |      10 |           5 |       0 |
+| 35680099333 | OKC-DAL-05152024 |    31 |      10 |          11 |       1 |
+| 71999939187 | OKC-DAL-05152024 |    30 |       6 |           8 |       1 |
+| 74329767072 | LAC-DAL-05012024 |     7 |       4 |           7 |       0 |
+| 77647727970 | BOS-DAL-06062024 |    22 |       6 |           2 |       3 |
+| 78603734755 | BOS-DAL-06062024 |    16 |      11 |           5 |       1 |
+| 87087426007 | MIN-DAL-05302024 |    28 |       9 |           6 |       1 |
+| 92373225612 | BOS-DAL-06062024 |     2 |       5 |           1 |       0 |
+| 92373225612 | LAC-DAL-05012024 |    12 |       7 |           1 |       1 |
+| 92373225612 | MIN-DAL-05302024 |     9 |       8 |           3 |       3 |
+| 92373225612 | OKC-DAL-05152024 |    11 |      10 |           1 |       1 |
+| 96914561353 | LAC-DAL-05012024 |    15 |       6 |           2 |       0 |
++-------------+------------------+-------+---------+-------------+---------+
+
+UPIT 1
+
+SQL naredba:
+
+SELECT UTAKMICA.SIFRA, KLUB.DVORANA,IGRAC.PREZIME, NASTUPIO.POENI NAJVISE_POENA FROM UTAKMICA,KLUB,IGRAC,NASTUPIO 
+WHERE UTAKMICA.SIFRA=NASTUPIO.SIFRA AND UTAKMICA.DOMACI_KLUB=KLUB.NAZIV_KLUBA AND NASTUPIO.OIB=IGRAC.OIB 
+AND NASTUPIO.POENI = (SELECT MAX(POENI) FROM NASTUPIO WHERE NASTUPIO.SIFRA=UTAKMICA.SIFRA) 
+GROUP BY UTAKMICA.SIFRA;
+
+Rezultat izvođenja naredbe:
+
++------------------+------------------+---------+---------------+
+| SIFRA            | DVORANA          | PREZIME | NAJVISE_POENA |
++------------------+------------------+---------+---------------+
+| BOS-DAL-06062024 | TD Garden        | Doncic  |            30 |
+| LAC-DAL-05012024 | Crypto.com Arena | Doncic  |            35 |
+| MIN-DAL-05302024 | Target Center    | Irving  |            36 |
+| OKC-DAL-05152024 | Paycom Center    | Doncic  |            31 |
++------------------+------------------+---------+---------------+
+
+Što upit vraća:
+
+Za svaku utakmicu, vraća šifru utakmice, dvoranu u kojoj je odigrana te prezime igrača koji je postigao najviše poena
+zajedno s brojem postignutih poena.
+
+Kako upit radi:
+
+Prvo formiramo pomoćnu tablicu T koja je Kartezijev produkt tablica UTAKMICA, KLUB, IGRAC i NASTUPIO.
+Potom kreiramo novu pomoćnu tablicu U u koju dodajemo točno one retke R tablice T koji ispunjavaju uvjete
+da je atribut SIFRA koji je potekao iz faktora UTAKMICA jednak atributu SIFRA koji je potekao iz faktora NASTUPIO,
+atribut DOMACI_KLUB koji je potekao iz faktora UTAKMICA jednak atributu NAZIV_KLUBA koji je potekao iz faktora KLUB,
+atribut OIB koji je potekao iz faktora NASTUPIO jednak atributu OIB koji je potekao iz faktora IGRAC,
+te konačno provjeravamo uvjet NASTUPIO.POENI = (SELECT MAX(POENI) FROM NASTUPIO WHERE NASTUPIO.SIFRA=UTAKMICA.SIFRA) 
+gradnjom tablice P. Tablica P se sastoji od redaka tablice NASTUPIO odnosno jednog retka koji
+sadrži maksimalnu vrijednost atributa POENI među svim redcima kojima je atribut SIFRA jednak atributu SIFRA iz tablice T.
+Provjeravanjem jednakosti atributa POENI s vrijednosti dobivenom iz tablice P izdvajamo iz tablice T redak s igračem koji
+je postigao najviše poena na pojedinoj utakmici.
+Potom u tablici U grupiramo retke u skupine s obzirom na međusobno jednaku vrijednost atributa SIFRA.
+Izlaznu tablicu čine 4 stupca, Broj, SIFRA - šifra utakmice, DVORANA - dvorana u kojoj je utakmica odigrana, PREZIME - prezime igrača s najvećim
+brojem poena i NAJVISE_POENA - najveći broj postignutih poena na određenoj utakmici.
+Izlazna tablica ima onoliko redaka koliko ima redaka u tablici UTAKMICA.
+
+UPIT 2
+
+SQL naredba:
+
+SELECT IGRAC.OIB,PREZIME,IME,AVG(POENI),AVG(SKOKOVI),AVG(ASISTENCIJE),AVG(BLOKADE) FROM IGRAC,NASTUPIO 
+WHERE IGRAC.OIB=NASTUPIO.OIB AND IGRAC.NAZIV_KLUBA='Dallas Mavericks' 
+GROUP BY IGRAC.OIB 
+ORDER BY AVG(POENI) DESC;
+
+Rezultat izvođenja naredbe:
+
++-------------+---------+--------+------------+--------------+------------------+--------------+
+| OIB         | PREZIME | IME    | AVG(POENI) | AVG(SKOKOVI) | AVG(ASISTENCIJE) | AVG(BLOKADE) |
++-------------+---------+--------+------------+--------------+------------------+--------------+
+| 35680099333 | Doncic  | Luka   |    33.0000 |       9.2500 |           6.7500 |       0.2500 |
+| 18283240321 | Irving  | Kyrie  |    18.5000 |       3.2500 |           4.2500 |       0.0000 |
+| 92373225612 | Lively  | Dereck |     8.5000 |       7.5000 |           1.5000 |       1.2500 |
++-------------+---------+--------+------------+--------------+------------------+--------------+
+
+Što upit vraća:
+
+OIB, prezime, ime te prosječan broj postignutih poena, skokova, asistencija i blokada za svakog igrača Dallas Mavericksa,
+sortirano silazno prema prosječnom broju postignutih poena.
+
+Kako upit radi:
+
+Prvo formiramo pomoćnu tablicu T koja je Kartezijev produkt tablica IGRAC i NASTUPIO.
+Potom kreiramo novu pomoćnu tablicu U u koju dodajemo točno one retke R tablice T koji ispunjavaju uvjete
+da je OIB koji je potekao iz faktora NASTUPIO jednak atributu OIB koji je potekao iz faktora IGRAC,
+te da je atribut NAZIV_KLUBA koji je potekao iz faktora IGRAC jednak stringu 'Dallas Mavericks'.
+Tako dobivena tablica U grupira se po skupinama ovisno o vrijednosti atributa OIB.
+Izlaznu tablicu čine 6 stupaca, Broj, OIB,PREZIME,IME faktora IGRAC te prosječne vrijednosti atributa
+POENI, SKOKOVI, ASISTENCIJE, BLOKADE iz tablice NASTUPIO za zadanog igrača.
+Konačno, izlaznu tablicu silazno sortiramo po vrijednosti AVG(POENI).
+
+ 
+
+UPIT 3
+
+SQL naredba:
+
+SELECT NAZIV_KLUBA,PREZIME,IME, VISINA_CM FROM IGRAC VAR1 
+WHERE VISINA_CM=(SELECT MAX(VISINA_CM) FROM IGRAC VAR2 WHERE VAR1.NAZIV_KLUBA=VAR2.NAZIV_KLUBA) 
+GROUP BY NAZIV_KLUBA 
+ORDER BY VISINA_CM DESC;
+
+Rezultat izvođenja naredbe:
+
++------------------------+----------+--------+-----------+
+| NAZIV_KLUBA            | PREZIME  | IME    | VISINA_CM |
++------------------------+----------+--------+-----------+
+| Minnesota Timberwolves | Gobert   | Rudy   |       216 |
+| Oklahoma City Thunder  | Holmgren | Chet   |       213 |
+| Los Angeles Clippers   | Zubac    | Ivica  |       213 |
+| Dallas Mavericks       | Lively   | Dereck |       211 |
+| Boston Celtics         | Tatum    | Jayson |       203 |
++------------------------+----------+--------+-----------+
+
+Što upit vraća:
+
+Za svaki klub upit vraća prezime, ime i visinu najvišeg igrača, sortirano silazno po visini.
+
+Kako upit radi:
+
+Za svaki redak R tablice IGRAC(alias VAR1) odabiremo hoćemo li ga dodati u pomoćnu tablicu T ovisno o tome je li ispunjen uvjet
+VISINA_CM=(SELECT MAX(VISINA_CM) FROM IGRAC VAR2 WHERE VAR1.NAZIV_KLUBA=VAR2.NAZIV_KLUBA). Provjeru uvjeta radimo gradnjom tablice U
+čiji se redci sastoje od redaka tablice IGRAC(alias VAR2) odnosno jednog retka koji
+sadrži maksimalnu vrijednost atributa VISINA_CM među svim redcima kojima je atribut NAZIV_KLUBA jednak atributu NAZIV_KLUBA 
+iz tablice T. Potom u tablici T grupiramo retke u skupine ovisno o vrijednosti atributa NAZIV_KLUBA.
+Dobivena tablica sadrži 4 stupca: NAZIV_KLUBA, PREZIME, IME i VISINA_CM te onoliko redaka koliko ima klubova.
+Konačno, izlaznu tablicu silazno sortiramo po vrijednosti VISINA_CM.
+
+UPIT 4
+
+SQL naredba:
+
+SELECT SIFRA, PREZIME, POENI+SKOKOVI+ASISTENCIJE+BLOKADE ZBROJ FROM NASTUPIO, IGRAC 
+WHERE NASTUPIO.OIB = IGRAC.OIB AND IGRAC.DATR>'1995-01-01' 
+ORDER BY ZBROJ DESC LIMIT 5;
+
+Rezultat izvođenja naredbe:
+
++------------------+--------------------+-------+
+| SIFRA            | PREZIME            | ZBROJ |
++------------------+--------------------+-------+
+| OKC-DAL-05152024 | Doncic             |    53 |
+| LAC-DAL-05012024 | Doncic             |    52 |
+| MIN-DAL-05302024 | Doncic             |    51 |
+| OKC-DAL-05152024 | Gilgeous-Alexander |    45 |
+| MIN-DAL-05302024 | Edwards            |    44 |
++------------------+--------------------+-------+
+
+Što upit vraća:
+
+5 šifra nastupa s najvećim zbrojem poena, skokova, asistencija i blokada, prezime igrača koji je postigao učinak, te taj zbroj,
+s dodatnim uvjetom da je igrač rođen nakon 1.1.1995., sortirano silazno prema zbroju.
+
+Kako upit radi:
+
+Prvo formiramo pomoćnu tablicu T koja je Kartezijev produkt tablica IGRAC i NASTUPIO.
+Potom kreiramo novu pomoćnu tablicu U u koju dodajemo točno one retke R tablice T koji ispunjavaju uvjete
+da je OIB koji je potekao iz faktora NASTUPIO jednak atributu OIB koji je potekao iz faktora IGRAC,
+te da je atribut DATR koji je potekao iz faktora IGRAC veći od datuma '1995-01-01'.
+Izlaznu tablicu čine 3 stupaca, SIFRA, OIB, te zbroj vrijednosti atributa POENI, SKOKOVI, ASISTENCIJE, BLOKADE za određeni nastup.
+Konačno, izlaznu tablicu silazno sortiramo po vrijednosti ZBROJ, s time da je veličina tablice ograničena na 5 redaka.
+
+
+
+PRIMJEDBE
+	
+Gornji upiti ispunjavaju tražene uvjete na sljedeći način:
+
+- barem tri upita moraju kombinirati podatke iz dviju ili više tablica: upiti 1, 2 i 4;
+- barem jedan mora kombinirati podatke iz tri ili više tablica: upit 1;
+- barem dva moraju sadržavati klauzulu GROUP BY: upiti 1, 2 i 3;
+- barem jedan mora sadržavati ugniježđene SELECT naredbe: upiti 1 i 3.
